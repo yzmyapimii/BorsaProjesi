@@ -71,6 +71,7 @@ namespace BorsaProjesi
                 }
             }
             TalepleriGuncelle();
+            Veriler.TalepKontrol();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -83,6 +84,11 @@ namespace BorsaProjesi
                 secilen.BakiyeOnay = 0;
             }
             TalepleriGuncelle();
+        }
+
+        private void YoneticiPaneli_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Veriler.TalepKontrol();
         }
     }
 }

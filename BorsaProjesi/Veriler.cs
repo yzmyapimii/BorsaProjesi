@@ -43,22 +43,25 @@ namespace BorsaProjesi
             }
             return null;
         }
-        public static Nesne EnUcuzNesneBul(string isim)
+        public static Nesne EnUcuzNesneBul(Talep talep)
         {
             Nesne enUcuz = null;
             foreach (Kullanici kullanici in uyeler)
             {
-                foreach (Nesne nesne in kullanici.Esyalar)
+                if (kullanici.KullaniciAdi!=talep.Alici.KullaniciAdi)
                 {
-                    if (nesne.Ad ==isim&&nesne.Onay)
+                    foreach (Nesne nesne in kullanici.Esyalar)
                     {
-                        if (enUcuz==null)
+                        if (nesne.Ad == talep.Urun && nesne.Onay)
                         {
-                            enUcuz = nesne;
-                        }
-                        else if(nesne.Fiyat<enUcuz.Fiyat)
-                        {
-                            enUcuz = nesne;
+                            if (enUcuz == null)
+                            {
+                                enUcuz = nesne;
+                            }
+                            else if (nesne.Fiyat < enUcuz.Fiyat)
+                            {
+                                enUcuz = nesne;
+                            }
                         }
                     }
                 }
@@ -93,22 +96,26 @@ namespace BorsaProjesi
             List<Talep> tamamlananTalepler = new List<Talep>();
             foreach (Talep talep in AlisTalepleri)
             {
-                Nesne alinacakNesne = EnUcuzNesneBul(talep.Urun);
-                if (alinacakNesne!=null)
+                Nesne alinacakNesne;
+                do
                 {
-                    talep.AlimiGerceklestir(alinacakNesne);
-                    if (talep.Tamamlandimi())
+                    alinacakNesne = EnUcuzNesneBul(talep);
+                    if (alinacakNesne != null)
                     {
-                        tamamlananTalepler.Add(talep);
-                    }
-                    else
-                    {
-                        alinacakNesne = EnUcuzNesneBul(talep.Urun);
                         talep.AlimiGerceklestir(alinacakNesne);
-                        alinacakNesne = EnUcuzNesneBul(talep.Urun);
-                        talep.AlimiGerceklestir(alinacakNesne);
+                        NesneTemizle();
+                        if (talep.Tamamlandimi())
+                        {
+                            tamamlananTalepler.Add(talep);
+                            break;
+                        }
+                        else if (talep.Alici.Bakiye < alinacakNesne.Fiyat || alinacakNesne.Miktar <= 0)
+                        {
+                            break;
+                        }
                     }
-                }
+                    else break;
+                } while (alinacakNesne!=null&&talep.Alici.Bakiye>=alinacakNesne.Fiyat);
             }
             foreach (Talep talep1 in tamamlananTalepler)
             {

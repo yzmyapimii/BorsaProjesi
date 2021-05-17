@@ -75,6 +75,7 @@ namespace BorsaProjesi
                 Talep talep = new Talep(kullanici, cbad.Text, int.Parse(tbmiktar.Value.ToString()));
                 Veriler.AlisTalepleri.Add(talep);
                 Veriler.TalepKontrol();
+                Veriler.TalepKontrol();
                 PanelGuncelle();
                 MessageBox.Show("Alış talebiniz oluşturuldu.");
             }

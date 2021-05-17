@@ -138,6 +138,7 @@
             this.Controls.Add(this.listBox1);
             this.Name = "YoneticiPaneli";
             this.Text = "Yönetici Paneli";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.YoneticiPaneli_FormClosing);
             this.Load += new System.EventHandler(this.YoneticiPaneli_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
