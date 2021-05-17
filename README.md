@@ -9,6 +9,6 @@ Deniz AŞKIN        192803085
 İsmail Burak ŞAN   192803067
 
 
-Admin kullanıcı adı: admin
-Admin şifresi : admin      **
+Admin paneli kullanıcı adı: admin
+Admin paneli şifresi : admin      **
 
