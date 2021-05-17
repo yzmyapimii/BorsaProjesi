@@ -22,6 +22,7 @@ namespace BorsaProjesi
         private void KullaniciPanel_Load(object sender, EventArgs e)
         {
             Text = "Hoşgeldiniz " + kullanici.Ad + " " + kullanici.Soyad+ DateTime.Now.ToShortDateString();
+            Veriler.TalepKontrol();
             PanelGuncelle();
         }
 

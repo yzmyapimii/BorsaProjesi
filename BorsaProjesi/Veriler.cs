@@ -56,7 +56,7 @@ namespace BorsaProjesi
                         {
                             enUcuz = nesne;
                         }
-                        else if(nesne.Fiyat>enUcuz.Fiyat)
+                        else if(nesne.Fiyat<enUcuz.Fiyat)
                         {
                             enUcuz = nesne;
                         }
@@ -101,6 +101,13 @@ namespace BorsaProjesi
                     {
                         tamamlananTalepler.Add(talep);
                     }
+                    else
+                    {
+                        alinacakNesne = EnUcuzNesneBul(talep.Urun);
+                        talep.AlimiGerceklestir(alinacakNesne);
+                        alinacakNesne = EnUcuzNesneBul(talep.Urun);
+                        talep.AlimiGerceklestir(alinacakNesne);
+                    }
                 }
             }
             foreach (Talep talep1 in tamamlananTalepler)
@@ -111,13 +118,13 @@ namespace BorsaProjesi
         }
         public static void NesneTemizle()
         {
-            List<Nesne> silinecekler = new List<Nesne>();
+            List<Nesne> silinecekler;
             foreach (Kullanici kullanici in uyeler)
             {
                 silinecekler = new List<Nesne>();
                 foreach (Nesne nesne in kullanici.Esyalar)
                 {
-                    if (nesne.Miktar == 0&&nesne.Onay)
+                    if (nesne.Miktar == 0)
                     {
                         silinecekler.Add(nesne);
                     }

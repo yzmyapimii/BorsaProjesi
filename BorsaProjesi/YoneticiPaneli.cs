@@ -47,6 +47,7 @@ namespace BorsaProjesi
         }
         private void YoneticiPaneli_Load(object sender, EventArgs e)
         {
+            Veriler.TalepKontrol();
             PanelGuncelle();
         }
 
